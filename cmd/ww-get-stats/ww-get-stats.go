@@ -109,7 +109,7 @@ func main() {
 	}
 }
 
-// defaultSearchPaths returns the standard Steam install locations for the current OS.
+// defaultSearchPaths returns the potential install locations for the current OS.
 func defaultSearchPaths() []string {
 	var bases []string
 
@@ -122,6 +122,14 @@ func defaultSearchPaths() []string {
 		bases = []string{
 			filepath.Join(home, ".local/share/Steam/steamapps/common/Wuthering Waves"),
 			filepath.Join(home, ".steam/steam/steamapps/common/Wuthering Waves"),
+		}
+		twintailBase := filepath.Join(home, ".local/share/twintaillauncher/games/wuwa_global")
+		if entries, err := os.ReadDir(twintailBase); err == nil {
+			for _, e := range entries {
+				if e.IsDir() {
+					bases = append(bases, filepath.Join(twintailBase, e.Name()))
+				}
+			}
 		}
 	case "darwin":
 		home, err := os.UserHomeDir()
@@ -140,14 +148,8 @@ func defaultSearchPaths() []string {
 
 	// Some installs place files directly under the base; others use a "Wuthering Waves Game" subdirectory.
 	var paths []string
-	seen := map[string]bool{}
 	for _, b := range bases {
-		for _, p := range []string{b, filepath.Join(b, "Wuthering Waves Game")} {
-			if !seen[p] {
-				seen[p] = true
-				paths = append(paths, p)
-			}
-		}
+		paths = append(paths, b, filepath.Join(b, "Wuthering Waves Game"))
 	}
 	return paths
 }

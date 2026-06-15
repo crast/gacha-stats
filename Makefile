@@ -8,10 +8,10 @@ BINARIES := gi-get-stats ww-get-stats
 all: $(BINARIES)
 
 gi-get-stats:
-	go build -trimpath -o $@ ./cmd/gi-get-stats
+	go build -ldflags="-s -w" -trimpath -o $@ ./cmd/gi-get-stats
 
 ww-get-stats:
-	go build -trimpath -o $@ ./cmd/ww-get-stats
+	go build -ldflags="-s -w" -trimpath -o $@ ./cmd/ww-get-stats
 
 clean:
 	rm -f $(BINARIES)

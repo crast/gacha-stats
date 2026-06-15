@@ -32,17 +32,12 @@ Previously-checked URLs are cached in `$XDG_CACHE_HOME/gi-stats.json` to avoid r
 
 Extracts the Wuthering Waves Convene Record URL from the game's log files and copies it to the clipboard, ready to paste into [wuwatracker.com](https://wuwatracker.com).
 
-**How it works:** The game writes the authenticated convene URL to `Client.log` (XOR-encrypted in current versions) and/or `debug.log`. This tool searches both files, decrypts `Client.log` using the known XOR cipher, and returns the most recent URL found.
-
 **Supported install locations (auto-detected):**
 
-| OS | Path |
-|----|------|
-| Linux | `~/.local/share/Steam/steamapps/common/Wuthering Waves/` |
-| macOS | `~/Library/Application Support/Steam/steamapps/common/Wuthering Waves/` |
-| Windows | `C:\Program Files (x86)\Steam\steamapps\common\Wuthering Waves\` |
+* Twintail Launcher
+* Default steam install location
 
-Both the base directory and the `Wuthering Waves Game` subdirectory are checked automatically.
+(if you installed to a non-standard place, use `-path` for the path to your game install)
 
 **Usage:**
 ```
